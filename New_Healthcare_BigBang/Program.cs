@@ -66,6 +66,15 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<HealthcareContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("piriya")));
 builder.Services.AddScoped<IDoctorsRepo,DoctorsRepository>();
 builder.Services.AddScoped<IPatientsRepo,PatientsRepository>();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("Corspolicy", builder =>
+    {
+        builder.AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader();
+    });
+});
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
 {
     options.SerializerSettings.ReferenceLoopHandling =
@@ -86,6 +95,8 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 
 app.UseAuthorization();
+app.UseCors("Corspolicy");
+app.UseStaticFiles();
 
 app.MapControllers();
 

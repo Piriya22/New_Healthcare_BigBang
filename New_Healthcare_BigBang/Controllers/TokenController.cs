@@ -28,9 +28,9 @@ namespace New_Healthcare_BigBang.Controllers
         [HttpPost("Doctors")]
         public async Task<IActionResult> Post(Doctors _userData)
         {
-            if (_userData != null && _userData.Doctor_Name != null && _userData.Password != null)
+            if (_userData != null && _userData.Doc_name != null && _userData.Doc_password != null)
             {
-                var user = await GetUser(_userData.Doctor_Name, _userData.Password);
+                var user = await GetUser(_userData.Doc_name, _userData.Doc_password);
 
                 if (user != null)
                 {
@@ -39,8 +39,8 @@ namespace New_Healthcare_BigBang.Controllers
                         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                         new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
                         new Claim("Doctor_Id", user.Doctor_Id.ToString()),
-                        new Claim("Doctor_Name", user.Doctor_Name),
-                        new Claim("Password",user.Password),
+                        new Claim("Doctor_Name", user.Doc_name),
+                        new Claim("Password",user.Doc_password),
                         new Claim(ClaimTypes.Role, DoctorsRole)
 
                     };
@@ -69,7 +69,7 @@ namespace New_Healthcare_BigBang.Controllers
 
         private async Task<Doctors> GetUser(string name, string password)
         {
-            return await _context.Doctors.FirstOrDefaultAsync(x => x.Doctor_Name == name && x.Password == password);
+            return await _context.Doctors.FirstOrDefaultAsync(x => x.Doctor_Name == name && x.Doc_password == password);
 
         }
 

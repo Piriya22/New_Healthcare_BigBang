@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using New_Healthcare_BigBang.Models;
+using New_Healthcare_BigBang.Models.DTO;
+using System.Numerics;
 
 namespace New_Healthcare_BigBang.Repository
 {
@@ -46,6 +49,7 @@ namespace New_Healthcare_BigBang.Repository
             {
                 await imageFile.CopyToAsync(stream);
             }
+            doctor.Status = "Not Admitted";
 
             doctor.Doctor_Image = fileName;
 
@@ -119,5 +123,59 @@ namespace New_Healthcare_BigBang.Repository
             throw new NotImplementedException();
         }
 
-    }
+
+        public async Task<UpdateStatus> UpdateStatus(UpdateStatus status)
+        {
+            var doc = await hospitalContext.Doctors.FirstOrDefaultAsync(s => s.Doctor_Id == status.id);
+            if (doc != null)
+            {
+                if (doc.Status == "Not Admitted")
+                {
+                    doc.Status = "Accepted";
+                    await hospitalContext.SaveChangesAsync();
+                    return status;
+                }
+                return status;
+
+            }
+            return null;
+        }
+
+        public async Task<UpdateStatus> DeclineDoctorStatus(UpdateStatus status)
+        {
+            var doc = await hospitalContext.Doctors.FirstOrDefaultAsync(s => s.Doctor_Id == status.id);
+            if (doc != null)
+            {
+                if (doc.Status == "Not Admitted")
+                {
+                    doc.Status = "Declined";
+                    await hospitalContext.SaveChangesAsync();
+                    return status;
+                }
+                return status;
+
+            }
+            return null;
+        }
+
+        public async Task<ICollection<Doctors>> RequestedDoctor()
+        {
+            var doc = await hospitalContext.Doctors.Where(s => s.Status == "Not Admitted").ToListAsync();
+            if (doc != null)
+            {
+                return doc;
+            }
+            return null;
+        }
+
+        public async Task<ICollection<Doctors>> AcceptedDoctor()
+        {
+            var doc = await hospitalContext.Doctors.Where(s => s.Status == "Accepted").ToListAsync();
+            if (doc != null)
+            {
+                return doc;
+            }
+            return null;
+        }
+    }      
 }

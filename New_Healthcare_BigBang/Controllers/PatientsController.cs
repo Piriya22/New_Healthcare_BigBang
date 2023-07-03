@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using New_Healthcare_BigBang.Models;
 using New_Healthcare_BigBang.Repository;
 
 namespace New_Healthcare_BigBang.Controllers
 {
+    //[Authorize(Roles = "Patients")]
+    //[Authorize(Roles = "Doctors")]
     [Route("api/[controller]")]
     [ApiController]
     public class PatientsController : ControllerBase

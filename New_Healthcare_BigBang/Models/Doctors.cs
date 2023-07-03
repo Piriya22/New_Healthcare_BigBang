@@ -22,6 +22,10 @@ namespace New_Healthcare_BigBang.Models
 
         public string? Status { get; set; }
 
+        public string? Doc_name { get; set; }
+
+        public string? Doc_password { get; set; }
+
         public ICollection<Patients>? Patients { get; set; }
     }
 }

@@ -26,6 +26,10 @@ namespace New_Healthcare_BigBang.Models
 
         public long Phone_Number { get; set; }
 
+        public string? user_name { get; set; }
+
+        public string? user_password { get; set; }
+
         public string? Patient_Address { get; set; }
     }
 }

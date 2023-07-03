@@ -48,6 +48,12 @@ namespace New_Healthcare_BigBang.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Doctor_Id"));
 
+                    b.Property<string>("Doc_name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Doc_password")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Doctor_Experience")
                         .HasColumnType("int");
 
@@ -105,6 +111,12 @@ namespace New_Healthcare_BigBang.Migrations
 
                     b.Property<long>("Phone_Number")
                         .HasColumnType("bigint");
+
+                    b.Property<string>("user_name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("user_password")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Patient_Id");
 
