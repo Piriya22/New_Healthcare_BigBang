@@ -54,7 +54,13 @@ namespace New_Healthcare_BigBang.Controllers
                         expires: DateTime.UtcNow.AddDays(1),
                         signingCredentials: signIn);
 
-                    return Ok(new JwtSecurityTokenHandler().WriteToken(token));
+                    var response = new
+                    {
+                        token = new JwtSecurityTokenHandler().WriteToken(token),
+                        doctor = user.Doctor_Id
+                    };
+
+                    return Ok(response);
                 }
                 else
                 {
@@ -102,7 +108,13 @@ namespace New_Healthcare_BigBang.Controllers
                         expires: DateTime.UtcNow.AddDays(1),
                         signingCredentials: signIn);
 
-                    return Ok(new JwtSecurityTokenHandler().WriteToken(token));
+                    var response = new
+                    {
+                        token = new JwtSecurityTokenHandler().WriteToken(token),
+                        patient = user.Patient_Id
+                    };
+
+                    return Ok(response);
                 }
                 else
                 {

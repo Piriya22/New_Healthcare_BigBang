@@ -6,7 +6,7 @@ using New_Healthcare_BigBang.Repository;
 
 namespace New_Healthcare_BigBang.Controllers
 {
-    //[Authorize(Roles = "Patients")]
+    [Authorize(Roles = "Patients")]
     //[Authorize(Roles = "Doctors")]
     [Route("api/[controller]")]
     [ApiController]

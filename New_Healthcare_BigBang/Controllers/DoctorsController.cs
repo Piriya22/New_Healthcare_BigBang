@@ -18,6 +18,7 @@ namespace New_Healthcare_BigBang.Controllers
         {
             this.doc = doc;
         }
+      
 
         [HttpGet]
         public IEnumerable<Doctors>? Get()
@@ -25,7 +26,7 @@ namespace New_Healthcare_BigBang.Controllers
 
             return doc.GetDoctor();
         }
-
+        
         [HttpGet("{doctorid}")]
         public Doctors? DoctorbyId(int doctorid)
         {
@@ -50,7 +51,7 @@ namespace New_Healthcare_BigBang.Controllers
                 return BadRequest(ModelState);
             }
         }
-
+        [Authorize(Roles = "Admin,Doctors")]
         [HttpPut("{doctorid}")]
         public async Task<ActionResult<Doctors>> Put(int doctorid, [FromForm] Doctors doctor, IFormFile imageFile)
         {
@@ -70,7 +71,7 @@ namespace New_Healthcare_BigBang.Controllers
                 return BadRequest(ModelState);
             }
         }
-
+        [Authorize(Roles = "Admin")]
 
         [HttpDelete("{doctorid}")]
         public Doctors? DeleteDoctor(int doctorid)
@@ -99,7 +100,7 @@ namespace New_Healthcare_BigBang.Controllers
             }
             return Ok(result);
         }
-
+       
         [HttpGet("Requested status")]
         public async Task<ActionResult<UpdateStatus>> GetRequestedDoctors()
         {
